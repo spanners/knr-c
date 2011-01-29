@@ -6,27 +6,15 @@
 int getaline(char line[], int maxline);
 void copy(char to[], char from[]);
 
-/* Prints the longest line in STDIN. */
 int main(void) {
 	int len;
-	int max = 0;
+	int max = 80;
 	char line[MAXLINE];
-	char longest[MAXLINE];
 
-	/* while (there's another line)
-	 * 		if (it's longer than the maximum length seen)
-	 * 			save its length
-	 * 			save it
-	 * print longest line
-	 */
 	while ((len = getaline(line, MAXLINE)) > 0) {
 		if (len > max) {
-			max = len;
-			copy(longest, line);
+			printf("%s", line);
 		}
-	}
-	if (max > 0) {
-		printf("%s", longest);
 	}
 	return 0;
 }
