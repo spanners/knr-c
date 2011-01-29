@@ -1,68 +1,68 @@
 #include <stdio.h>
+
 #define MAXLINE 1000
+
+/* Function declarations */
 int getaline(char line[], int maxline);
 void copy(char to[], char from[]);
 
-int main(void)
-{
-	/* while (there's another line)
-	 * 		if (it's longer than the previous longest)
-	 * 			save it
-	 * 			save its length
-	 * print longest line
-	 */
+/* Prints the longest line in STDIN. */
+int main(void) {
 	int len;
-	int max;
+	int max = 0;
 	char line[MAXLINE];
 	char longest[MAXLINE];
-	int i;
-	char c;
 
-	max = 0;
-	while ((len = getaline(line, MAXLINE)) > 0)
-	{
-		if (len > max)
-		 {
+	/* while (there's another line)
+	 * 		if (it's longer than the maximum length seen)
+	 * 			save its length
+	 * 			save it
+	 * print longest line
+	 */
+	while ((len = getaline(line, MAXLINE)) > 0) {
+		if (len > max) {
 			max = len;
 			copy(longest, line);
 		}
 	}
-	if (max > 0)
+	if (max > 0) {
 		printf("%s", longest);
+	}
 	return 0;
 }
 
 
-int getaline(char s[], int lim)
-{
-	int c, i;
+/* Stores text up to \n in line and returns its length. */
+int getaline(char line[], int lim) {
+	int len;
+	int c;
 
 	/* while (
-	 * 		we have not reached line limit
-	 * 		it is not EOF
+	 * 		we have not reached line limit and
+	 * 		it is not End Of File and
 	 * 		c is not the newline char)
-	 * 			read c into s
+	 * 			read c into line
 	 * if (c is newline char)
 	 * 		append to s
-	 * append NULL char '\0' to s
+	 * append NULL char '\0' to line
 	 */
-	for (i = 0; i<lim-1 && (c = getchar())!=EOF && c!='\n'; ++i)
-		s[i] = c;
-	if (c == '\n')	/* this is necessary for when input file has blank lines */
-	{
-		s[i] = c;
-		++i;		/* so i is at least 1 */
-	}
-	s[i] = '\0';	/* terminate s */
+	for (len = 0; len<lim-1 && (c = getchar())!=EOF && c!='\n'; ++len) line[len] = c;
 
-	return i;
+	if (c == '\n') {/* this is necessary for when input file has blank lines */
+		line[len] = c;
+		++len;		/* so len is at least 1 */
+	}
+	line[len] = '\0';	/* terminate line */
+
+	return len;
 }
 
+/* Copies contents of to into from. */
 void copy(char to[], char from[])
 {
-	int i;
+	int i = 0;
 
-	i = 0;
-	while ((to[i] = from[i]) != '\0')
+	while ((to[i] = from[i]) != '\0') {
 		++i;
+	}
 }
