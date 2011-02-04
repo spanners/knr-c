@@ -4,31 +4,31 @@
 
 /* Function declarations */
 int getaline(char line[], int maxline);
+void reverseline(char in[], char out[], int len);
 void copy(char to[], char from[]);
 
-/* Prints the longest line in STDIN. */
 int main(void) {
 	int len;
-	int max = 0;
 	char line[MAXLINE];
-	char longest[MAXLINE];
+	char out[MAXLINE];
 
-	/* while (there's another line)
-	 * 		if (it's longer than the maximum length seen)
-	 * 			save its length
-	 * 			save it
-	 * print longest line
-	 */
 	while ((len = getaline(line, MAXLINE)) > 0) {
-		if (len > max) {
-			max = len;
-			copy(longest, line);
-		}
-	}
-	if (max > 0) {
-		printf("%s", longest);
+		reverseline(line, out, len);
+		printf("%s", out);
 	}
 	return 0;
+}
+
+void reverseline(char line[], char out[], int len) {
+		int i;
+
+		len = len -1; /* skip '\n' */
+		i = 0;
+		while (len > 0) { 
+			out[i++] = line[--len];
+		}
+		out[i++] = '\n';
+		out[i] = '\0';
 }
 
 
